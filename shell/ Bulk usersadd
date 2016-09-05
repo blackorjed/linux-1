@@ -1,0 +1,21 @@
+ #!/bin/bash
+      
+#author: xxx
+      
+      read -p "input name " -t 10 name
+      read -p "inout num " -t 10 num
+      read -p "input passwd " -t 10 pass
+      
+      
+      if [ ! -z "$name" -a ! -z "$num" -a ! -z "$pass" ]
+      then
+              y=$(echo $num | sed 's/'[0-9]*$'//g')
+              if [ -z "$y" ]
+              then
+              for(( i=1;i<=$num;i=i+i ))
+              do
+                     /usr/sbin/useradd $name$i &>/dev/null
+                      echo $pass | /usr/sbin/passwd  --stdin "$name$i" &>/dev/null
+              done
+              fi
+      fi
